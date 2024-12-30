@@ -1,0 +1,63 @@
+data ex1;
+   do i=1 to 100;
+    z=normal(i);
+    x=100+8*z;
+	output;
+  end;
+run;
+
+
+data ex2;
+   do i=1 to 100; (1000,10000)
+    z=normal(i);
+    x=100+8*z;
+	output;
+  end;
+run;
+
+
+
+data ex3;
+do i=1 to 100;
+x=ranpoi(3);
+output;
+end;
+run;
+
+
+data ex4;
+do i=1 to 100; (1000,10000)
+ranpoi(3);
+output;
+end;
+run;
+
+
+
+data ex5;
+do i to 100;
+z=normal(i);
+x=probchi(i,5);
+y=z/sqrt(x/5);
+output;
+end;
+run;
+
+
+data ex6;
+do i=1 to 100;
+x=probf(i,5,10);
+output;
+end;
+run;
+
+proc print;
+run;
+
+proc  means;
+var x;
+run;
+
+ 
+
+

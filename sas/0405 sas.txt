@@ -1,0 +1,85 @@
+data example;
+infile 'C:\Users\admin\Desktop\sas 데이터자료\APb_2.txt' firstobs=2;
+input id stay age risk bed school region census nurse;
+run;
+
+proc print;
+run;
+
+
+data example2;
+set example;
+label id='일련번호' stay='전체입원환자드들의 평균입원일수';
+label nurse='간호원수'  ;
+run;
+
+proc print data=exampe label;
+run;
+
+
+proc format;
+value schfmt 1='부속' 2='비부속';
+run;
+ 
+proc print data=example;
+format school schfmt.;
+run;
+
+
+data region1 region2 region3 region4;
+set example;
+if region=1 then output region1;
+else if region=2 then output region2;
+else if region= 3 then output region3;
+else output region4;
+run;
+
+
+data example1;
+set example;
+if age < 40 then ageg=30;
+else if age<50 then ageg=40;
+else if age<60 then ageg=50;
+else ageg=60;
+run;
+
+
+data example2;
+set example;
+rns=census/nurse;
+run;
+
+
+
+
+
+data toeic;
+infile 'C:\Users\admin\Desktop\sas 데이터자료\APb_3.txt' firstobs=2 ;
+input ID COLLEGE GRADE LC1 LC2 LC3 LC4 LCTOTAL RC1 RC2 RC3 RCTOTAL;
+run;
+
+data toeic1;
+set toeic;
+total=lctotal+rctotal;
+keep id total;
+run;
+
+proc sort data=toeic1 out=stoeic1;
+by desending total; 
+run;
+
+proc print;
+run;
+
+data result;
+set stoeic1;
+if total>=700 then grade='A';
+else if total>=600 then grade='B';
+else if total>=500 then grade='C';
+else grade='F';
+run;
+proc print;
+run;
+
+
+

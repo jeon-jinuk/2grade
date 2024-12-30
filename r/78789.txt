@@ -1,0 +1,49 @@
+
+x <- 1:5
+x[3] #3번쨰거만 가져와라
+x[c(3,4)]
+
+y <- (1:5)*10
+y[3]
+
+a <- (1:10)*2+3
+sqrt(a)
+2^a
+
+a2 <- a[-3]  #3번째꺼만빼라
+a3 <- a[c(-3,-4)] #a[-c(3,4)]
+a4 <- a[a!=15]
+a5 <- a[a==17]
+a6 <- a[a>=10]
+
+fact <- function(n){
+  x <- 1
+  for ( i in 2:n) {
+    x <- x*i
+  }
+  return(x)
+}
+
+fact(10)
+
+perm <- function(n,r){
+  return(fact(n)/fact(n-r))
+}
+
+perm(5,2)
+perm(10,5)
+
+
+comb <- function(n,r){
+  return(fact(n)/fact(n-r)/fact(r))
+}
+
+comb(5,2)
+comb(45,6)
+
+install.packages("combinat")
+library(combinat)
+combn(5,2)
+
+library(gtools)
+permutations(5,2)

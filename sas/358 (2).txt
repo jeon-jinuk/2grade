@@ -1,0 +1,73 @@
+/*
+data ex;
+ do x =1 to 10;
+   gx=gamma(x);
+   output;             /*저장*/
+  end;
+ run;  
+/*
+data ex;
+ do x=1 to 20;
+   px=probbnml(0.25,20,x)-probbnml(0.25,20,x-1);
+    fx=probbnml(0.25,20,x);
+    output;
+   end;
+  run;*/
+
+  
+/*
+ data ex;
+  do x=-3 to 3 by 0.1;
+   fx=probbnorm(x);
+   output;
+  end;
+ run;
+*/
+
+
+/*
+ data ex;
+  p=probnorm(2)- probnorm(-1);
+  run;
+*/
+  
+
+/*
+  data ex;
+   do i=1 to 10000;
+    z=normal(i);
+    x=170+5*z;
+	output;
+  end;
+ run;
+
+ proc means data=ex;
+ var x;
+ run;
+*/
+
+ 
+/*
+ data ex;
+   do i=1 to 10;
+    x=ranuni(i);
+	output;
+  end;
+ run;
+
+proc print;
+run;
+*/
+
+data ex;
+       do i=1 to 10;
+	   x=ranuni(i);
+	   y=1+9*x;
+	   output;
+	   end;
+run;
+
+proc print;
+run;
+
+

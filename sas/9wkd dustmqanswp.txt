@@ -1,0 +1,95 @@
+9-1
+
+data ex;
+infile 'C:\Users\admin\Desktop\sas 데이터자료\CH9_1.txt' firstobs=2;
+input id gender cm kg ha run;
+run;
+
+proc print;
+run;
+
+proc sort data=ex;
+by gender;
+run;
+
+proc print;
+by gender;
+pageby gender;
+run;
+
+proc sort data=ex;
+by descending cm;
+run;
+
+proc print;
+run;
+
+proc sort data=ex;
+by run;
+run;
+
+proc rank ties=low;
+var run;
+ranks rrun;
+run;
+
+proc print;
+run;
+
+
+proc sort data=ex;
+by gender;
+run;
+
+proc rank out=rex ties=low;
+var run;
+by gender;
+ranks rrun;
+run;
+
+proc print;
+by gender;
+pageby gender;
+run;
+
+
+proc sort data=rex;
+by gender;
+run;
+
+proc print;
+run;
+
+9-2
+data ex2;
+infile 'C:\Users\admin\Desktop\sas 데이터자료\CH9_2.txt' firstobs=2;
+input ID BODYWT BRAINWT animal$;
+run;
+
+proc print;
+run;
+
+data bodybrwt;
+set ex2;
+keep ID BODYWT BRAINWT;
+run;
+
+proc print;
+run;
+
+data bodybrwt_1;
+set bodybrwt;
+logbod=log(BODYWT);
+logbr=log(BRAINWT);
+run;
+proc print;
+run;
+
+
+
+proc sort;
+by BODYWT;
+run;
+
+proc print;
+run;

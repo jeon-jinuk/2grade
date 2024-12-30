@@ -1,0 +1,94 @@
+data ex;
+infile 'C:\Users\admin\Desktop\APa_1.txt' firstobs=2;
+input city age religion educatn occupatn gender income;
+run;
+proc print;
+run;
+
+data ex;
+infile 'C:\Users\admin\Desktop\APa_1.txt' firstobs=2;
+input city age religion educatn occupatn gender income;
+if occupatn=. then delete;
+if income=. then delete;
+run;
+proc format; /*출력 형식을 ~지정*/
+value cfmt 1='서울' 2='부산' 3='광주';
+value rfmt 1='기독교' 2='천주교' 3='불교' 4='기타';
+run;
+proc print;
+format city cfmt.;
+format religion rfmt.;
+run;
+proc freq;
+tables city; /*도시에 대해*/
+format city cfmt.;
+run;
+proc freq;
+tables religion; /*종교에 대해*/
+format religion rfmt.;
+run;
+proc freq;
+tables city*religion; /*(*를 넣어야 됨)*/
+format city cfmt.;
+format religion rfmt.;
+run;
+
+
+proc means data=ex mean std maxdec=2;
+var income;
+class city;
+output out=result mean=imean std=istd;/*데이터 이름 지정 후 변수이름 지정*/
+format city cfmt.;
+run;
+
+data result1;
+set result;
+cv=(istd/imean)*100; /*변동계수 구하기*/
+keep city imean istd cv;
+run;
+proc print; /*맨위의 .은 전체값 임*/
+run;
+
+data result1;
+set result1;
+if city=. then delete;
+run;
+proc print; 
+run;
+
+
+proc means data=ex;
+var income;
+where city=1; /*city가 1인 곳에서 구하라*/
+run;
+proc means data=ex;
+var income;
+where city in (1,2); /*city가 서울 부산만 구하라*/
+run;
+
+data ex1;
+xm=(1*21+2*25+3*27)/73;
+run;
+proc print;
+run;
+data exx;
+input x fre@@;
+cards;
+1 21 2 25 3 27
+run;
+proc print;
+run;
+proc means;
+var x;
+freq fre;
+run;
+
+data exxx;
+input x prob@@;
+cards;
+1 0.1 2 0.2 3 0.7
+run;
+proc means;
+var x;
+weight prob;
+run;

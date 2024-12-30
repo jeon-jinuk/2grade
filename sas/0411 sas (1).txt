@@ -1,0 +1,132 @@
+data example;
+infile 'C:\Users\admin\Desktop\sas 데이터자료\APb_2.txt' firstobs=2;
+input id stay age risk bed school region census nurse;
+label id='일련번호' stay='전체환자들의 평균입원일수' age='전체입원환자들의 평균연령' risk='감염율' bed='침대수' school='대학부속병원 여부' region='지역' census='입원환자수' nurse='간호사수' ;
+run;
+
+proc print;
+run;
+
+proc format;
+value schfmt 1='부속' 2='비부속';
+run;
+
+proc print data=ex label;
+format school schfmt.;
+run;
+
+proc means data=example mean var std;
+var bed;
+output out=bresult mean=bmean var=bvar std=bstd;
+/*class region; 지역에 관한거 할때*/
+run;
+
+proc print;
+run;
+
+data bresult;
+set bresult;
+keep region bmean bvar bstd;
+if region=. then delete;
+run;
+
+proc print;
+run;
+/*여러변수에 대한 지역별 평균 구하기*/ 
+proc means data=example mean;
+var bed nurse;
+output out=bresult mean=bmean nmean;
+class region;
+run;
+
+proc print;
+run;
+/* region 1에대한모든 변수의 평균과 분산*/
+proc means mean var;
+where region in (1);
+run;
+
+ proc print;
+ run;
+
+/*파일 이름 저장및 대체*/
+filename hosp 'C:\Users\admin\Desktop\sas 데이터자료\APb_2.txt';
+libname cho 'C:\Users\admin\Desktop\cdh';
+/*cdh에 저장*/
+data cho.ex;
+infile hosp firstobs=2 obs=10;
+input id stay age risk bed school region census nurse;
+label id='일련번호' stay='전체환자들의 평균입원일수' age='전체입원환자들의 평균연령' risk='감염율' bed='침대수' school='대학부속병원 여부' region='지역' census='입원환자수' nurse='간호사수' ;
+run;
+option date=0; /*날짜안나오게하는거 나오고 싶게 만들려면 1넣기*/
+option number=0; /*날짜 옆에 숫자 안오게하는법*/
+title 'This is an example'; /*제목 붙이기*/
+footnote 'This is an example'; /*밑에 붙이기 아예 안하고 싶으면 공백으로 놔두면됨*/
+proc print;
+run;
+
+
+data ex;
+infile 'C:\Users\admin\Desktop\sas 데이터자료\APa_1.txt' firstobs=2 ;
+input city age religion educatn occupatn gender income;
+if occupatn=. then delete;
+if income=. then delete;
+run;
+
+proc print data=ex noobs; /*obs 없게하는거  no obs*/
+run;
+
+proc print data=ex;
+sum income;
+sumby city;  /*city1,2,3에 대한 (income)합을 나타낸다*/
+by city;
+pageby city;
+run;
+
+data ex;
+infile 'C:\Users\admin\Desktop\sas 데이터자료\APa_1.txt' firstobs=2 ;
+input city age religion educatn occupatn gender income;
+if occupatn=. then delete;
+if income=. then delete;
+run;
+proc print data=ex;
+run;
+
+proc sort data=ex out=exs;/*다르게 저장하고 싶을때 out쓰기*/
+by gender desending income; /* 내려가고싶으면  desending by ~에따른 b의 내림차순*/
+run;
+
+proc print;
+run;
+
+proc means min max mean;
+var income;
+class religion;
+run;
+
+
+data toeic;
+infile 'C:\Users\admin\Desktop\sas 데이터자료\APb_3.txt' firstobs=2 ;
+input ID COLLEGE GRADE LC1 LC2 LC3 LC4 LCTOTAL RC1 RC2 RC3 RCTOTAL;
+total=Lctotal+Rctotal;
+run;
+
+proc print data=toeic;
+run;
+
+proc sort data=toeic out=stoeic; 
+by descending total;
+run;
+
+proc print data=stoeic;
+run;
+
+proc rank data=stoeic descending ties=low; /*ties 동률이 나오면 낮은 등수로 해주세요*/
+var total;
+ranks trank;
+by college;
+run;
+
+proc print;
+run;
+

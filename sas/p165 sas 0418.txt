@@ -1,0 +1,194 @@
+p165 3.(a)
+data ex;
+infile 'C:\Users\admin\Desktop\APb_2test.txt' firstobs=5;
+input id stay age risk bed school region census nurse;
+run;
+
+proc rank data=ex out=rtest;
+var stay;
+ranks rstay;
+run;
+
+
+
+data ans;
+set rtest;
+if rstay=10;
+run;
+
+proc print;
+run;
+
+3.(b)
+data ex;
+infile 'C:\Users\admin\Desktop\APb_2test.txt' firstobs=5;
+input id stay age risk bed school region census nurse;
+run;
+
+proc sort data=ex;
+by region;
+run;
+
+
+
+proc rank data=ex out=rtest;
+var stay;
+ranks rstay;
+by region;
+run;
+
+data ans;
+set rtest;
+if rstay=1;
+run;
+
+proc print;
+run;
+
+지역1만 나타냄
+data region1;
+set rtest;
+if region=1;
+run;
+
+proc print;
+run;
+
+
+proc sort data=ex;
+by region;
+run;
+
+proc means data=ex;
+var age;
+run;
+
+
+data ex;
+infile 'C:\Users\admin\Desktop\APb_2test.txt' firstobs=5;
+input id stay age risk bed school region census nurse;
+run;
+
+proc sort data=ex;
+by region descending age;
+run;
+
+proc rank data=ex out=rtest descending;
+var age;
+by region;
+ranks rage;
+run;
+
+proc print;
+run;
+
+
+data ex;
+infile 'C:\Users\admin\Desktop\APb_2test.txt' firstobs=5;
+input id stay age risk bed school region census nurse;
+run;
+
+proc sort data=ex;
+by region descending age;
+run;
+
+proc rank data=ex out=rtest descending;
+var age;
+ranks rage;
+where region in (1);
+run;
+
+proc print;
+run;
+
+proc freq data=ex;;
+tables school*region;
+run;
+
+
+
+data ex;
+infile 'C:\Users\admin\Desktop\APb_2test.txt' firstobs=5;
+input id stay age risk bed school region census nurse;
+run;
+
+data s2r3;
+set ex;
+if school=2;
+if region=3;
+run;
+
+proc print;
+run;
+
+proc rank data=s2r3 out=rs2r3 descending;
+var stay;
+ranks rstay;
+run;
+
+
+/*위에 걸로 해도되고 이걸로 해도된다
+proc rank data=ex descending out=rex;
+var stay;
+ranks rstay;
+where school in (2) and region in (3);
+run;*/
+
+proc print data= rex;
+run;
+
+
+rex자료의 rstay의1일 하나만 볼려할떄
+data r1;
+set rex;
+if rstay=1;
+run;
+
+proc print;
+run;
+
+
+/*x~n(170,5^2)*/
+data ex;
+do i=1 to 10;
+ z=normal(i);
+ x=170+5*z;
+output;
+ end;
+ run;
+
+proc print;
+run;
+
+data ex;
+chi=0;
+do i=1 to 5;
+chi=chi+normal(i)+normal(i);
+output;
+end;
+run;
+
+proc print;
+run;
+
+
+
+data ex2;
+do i= 1 to 10;
+chi=0;
+do j=1 to 5;
+chi=chi+normal(j)**2;
+end;
+output;
+end;
+run;
+
+proc print;
+run;
+
+
+
+
+
+
+

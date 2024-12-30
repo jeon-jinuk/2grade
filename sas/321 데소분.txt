@@ -1,0 +1,166 @@
+data ex;
+do i=1 to 10;
+x=normal(i);
+output;
+end;
+run;
+
+proc print;
+run;
+
+
+data exp;
+ do i=1 to 10;
+ x=ranpoi(i,3);
+ output;
+ end;
+ run;
+
+ proc print;
+ run;
+/* 자유도 5인 카이제곱분포를 따르는 변량 10개 생성법*/
+data exchi;
+ do i=1 to 10;
+  chi=0;
+  do j=1 to 5;
+  chi=chi+normal(j)**2;
+  end;
+  output;
+end;
+keep i chi;
+run;
+
+proc print;
+run;
+
+
+
+/*자유도 5인 t분포를 따르는 변량 10 생성법*/
+data exchi;
+
+do i=1 to 10;
+z= normal(j);
+
+
+chi=0;
+ do j=1 to 5;
+  chi=chi+normal(j)**2;
+ end;
+
+ t=z/sqrt(chi/5);
+ output;
+ end;
+ run;
+
+ proc print;
+ run;
+
+
+
+/*자유도 (5,10)인 F분포를 따르는 변량 10 생성법*/
+
+
+data ranf;
+do i=1 to 10;
+
+chi1=0;
+ do j=1 to 5;
+  chi1=chi1+normal(j)**2;
+ end;
+
+chi2=0;
+ do k=1 to 10;
+  chi2=chi2+normal(k)**2;
+ end;
+
+   f=(chi1/5)/(ch2/10);
+  output;
+keep i f;
+run;
+
+proc print;
+run;
+
+
+
+data example;
+input id name$ age gender$ income;
+cards;
+1 LEE  35 m 
+2 Kim  30  f  150
+3 Cho  25 m 200
+4 Lee  30  f  230
+5 Min  35 m 180
+run;
+
+proc print;
+run;
+
+data example;
+input id #2 @5 score; /* 특정 변수만 쓸때사용 #,@*/
+cards;
+1 
+cho 87 76
+2 
+kim 76 87
+3
+min 89 76 87
+run;
+
+proc print;
+run;
+
+data income;
+infile 'C:\Users\admin\Documents\APa_1.txt' firstobs=2 ;
+input city age religion educatn occupatn gender income;
+run; 
+proc print;
+run;
+
+/*
+data seoul busan kwangju; 
+set income;
+if city=1 then output seoul;
+if city=2 then output busan;
+if city=3 then output kwangju;
+run;
+*/
+
+/*
+data kwangju;
+set income;
+if city=3;
+run;
+
+data all;
+ set seoul busan kwangju;
+ run;
+*/
+
+
+
+data data1;
+set income;
+keep id age religion; /*3개변수만지정해서생성*/
+run;
+
+data data2;
+set income;
+drop city age religion; /*3개빼고지정*/
+run;
+
+data total;
+merge data1 data2; /*옆으로 눕힘*/
+run;
+
+proc print data=income;
+run;
+
+data income1;
+set income;
+if income=. then delete;
+run;
+
+proc print data=income1;
+run;
+

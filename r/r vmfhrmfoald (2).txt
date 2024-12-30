@@ -1,0 +1,69 @@
+
+#73페이지 삼전도:plot
+n_sim <- 10000
+x <- runif(n_sim)
+y <- runif(n_sim)
+plot(x,y,pch=1,cex=0.1)
+curve(sqrt(1-x^2),add=T)
+
+
+#72페이지 파이값계산하기
+
+n_sim <-10000
+x <- runif(n_sim)
+y <- runif(n_sim)
+tf <- (x^2+y^2<1)
+4*sum(tf)/n_sim
+m  #곡선/전체 점의수
+
+
+
+
+curve(x^2,from=0,to=1)
+curve(sin(x),from=0,to=2*pi)
+curve(0*x,from=0,to=2*pi,add=T,col='red')
+
+#0~1 사이에서 sqrt(x척분값 ) 적분값 계산하는 시뮬레이션
+#참값은 2/3
+
+n_sim <- 10000
+x <- runif(n_sim)
+y <- runif(n_sim)
+plot(x,y,pch=1,cex=0.1)
+curve(0*x+1/2,add=T,col='red')
+
+
+n_sim <- 5
+x <- runif(n_sim)
+y <- runif(n_sim)
+x
+y
+(x<y)
+z <- c(T,F,T)
+sum(z)
+
+a <- c(1,2,4)
+sum(a)
+
+
+#적분
+n_sim <- 1000
+x <- runif(n_sim)
+y <- runif(n_sim)
+tf <- (y<sqrt(x))
+sum(tf)/n_sim
+
+
+#과제1
+n_simulation = 1000 
+n_success = 0
+for(i in 1:n_simulation){
+x = sample(1:9,3,replace=T)
+if(x[1]>=4)n_success=n_success+1
+if((x[1]==3) & (x[2]>=2))n_success = n_success+1
+}
+
+
+#과제 2
+x=rbinom(10,1,0.6)
+mean(x)

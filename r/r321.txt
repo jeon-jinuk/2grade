@@ -1,0 +1,16 @@
+x = rbinom(5, 1, 0.5)
+x
+mean(x)
+x = rbinom(100, 1, 0.5)
+mean(x)
+x = rbinom(10000, 1, 0.5)
+mean(x)
+
+# 전체 로또 숫자의 조합 수
+a <- factorial(45)/factorial(6)/factorial(39)
+
+#모두가 홀수인 조합 수
+b <- factorial(23)/factorial(6)/factorial(17)
+
+# 모두 홀수일 확률
+p <- b/a

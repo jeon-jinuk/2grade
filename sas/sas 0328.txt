@@ -1,0 +1,46 @@
+data income;
+infile 'C:\Users\admin\Desktop\Apa_1.txt' firstobs=2;
+input city age religion educatn occupatn gender income;
+label edu='education level'; 
+label city='the name of the city';
+run;
+
+proc print;
+run;
+
+data dincome_1;
+ set income;
+if income=. then delete;
+if occupatn=. then delete;
+
+run;
+
+proc print label;
+run;
+
+
+data ex;
+set dincome_1;
+if 4< _N_<=10;
+run;
+
+proc print;
+run;
+
+data ch6;
+infile 'C:\Users\admin\Desktop\CH6_1.txt' firstobs=2;
+input ID x1 x2 x3 x4 y gender$ ;
+run;
+
+proc print;
+var _character_;      /*var 쓰면 따로나오게 할수있다 _numeric 쓰면 숫자결과만 나오게함_character_은 문자만 나오게함  */
+run;
+
+data over50 under50;
+set income;
+if age>=50 then output over50;
+else output under50;
+run;
+
+proc print data=under50;
+run;

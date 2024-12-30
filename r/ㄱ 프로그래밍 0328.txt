@@ -1,0 +1,67 @@
+
+# 교재 66페이지
+n_simulation <- 1000 
+n_success <- 0
+for(i in 1:n_simulation){
+  x <- sample(1:5,3,replace=F)
+  y <- x[1]*100+x[2]*10+x[3]
+  if(y>320) n_success <- n_success +1
+}
+n_success 
+n_success / n_simulation 
+
+# 로또번호 모두 홀수일 확률 시물레이션
+
+분자 <- factorial(23)/factorial(6)/factorial(17)
+분모 <- factorial(45)/factorial(6)/factorial(39)
+비율 <- 분자/분모 #0.01239365
+
+n_simulation <- 1000000
+n_success <- 0
+for(i in 1:n_simulation){
+  x <- sample(1:45,6,replace=F)
+  y <- 1.0*x[1]*x[2]*x[3]*x[4]*x[5]*x[6]
+  if((y%%2)==1) n_success <- n_success +1
+}
+n_success 
+n_success / n_simulation 
+
+# 로또번호 모두 짝수일 확률 시물레이션
+
+분자 <- factorial(22)/factorial(6)/factorial(16)
+분모 <- factorial(45)/factorial(6)/factorial(39)
+비율 <- 분자/분모 #0.009160522
+
+n_simulation <- 1000000
+n_success <- 0
+for(i in 1:n_simulation){
+  z <- sample(1:45,6,replace=F)
+  x <- z-1
+  y <- 1.0*x[1]*x[2]*x[3]*x[4]*x[5]*x[6]
+  if((y%%2)==1) n_success <- n_success +1
+}
+n_success 
+n_success / n_simulation 
+
+sample(1:5,3,prob=c(0.1,0.2,0.2,0.3,0.2))
+sample(1:5,3,prob=c(1,2,2,3,2))
+
+n_sim <- 1000
+x <- runif(n_sim)
+y <-  x*9+1   # 1 ~ 10 실수난수
+hist(x)
+
+n_sim <- 1000
+x <- runif(n_sim)
+y <- runif(n_sim)# 1 ~ 10 실수난수
+plot(x,y)
+
+n_sim <- 1000
+x <- runif(n_sim)
+y <- runif(n_sim)
+plot(x,y,pch=10)
+
+n_sim <- 1000
+x <- runif(n_sim)
+y <- runif(n_sim)
+plot(x,y,pch=1,cex=0.1) # pch 심벌의 모양cex 점크기 

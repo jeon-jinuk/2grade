@@ -1,0 +1,136 @@
+a
+data ch6;
+infile 'C:\Users\admin\Desktop\CH6_1.txt' firstobs=2;
+input ID x1 x2 x3 x4 y gender$ ;
+run;
+
+proc print;
+run;
+
+data one;
+set ch6;
+keep id x1-x3;
+run;
+proc print;
+run;
+
+b
+data two;
+set ch6;
+keep id x4 y gender;
+run;
+proc print;
+run;
+
+c
+data sum;
+merge one two;
+run;
+
+proc print;
+run;
+
+d
+data men;
+set ch6;
+if gender='m' ;
+run;
+
+proc print;
+run;
+
+data women;
+set ch6;
+if gender='f' ;
+run;
+
+proc print;
+run;
+
+/*
+data men women;
+set ch6;
+if gender='m' then output men;
+else output women;
+run;
+*/
+2
+data stat;
+infile 'C:\Users\admin\Desktop\APa_2.txt' firstobs=2 ;
+input id x1 x2 x3 x4 x5 x6 x7 x8 x9 ;
+run;
+
+proc print;
+run;
+
+3
+data busan;
+set stat;
+if x1=1 or x1=2;
+if x2=1;
+run;
+proc print;
+run;
+
+4
+data income;
+infile 'C:\Users\admin\Desktop\Apa_1.txt' firstobs=2;
+input city age religion educatn occupatn gender income;
+run;
+
+proc print;
+run;
+
+data over50;
+set income;
+if age>=50;
+run;
+
+proc print;
+run;
+
+5
+data agegroup;
+set income;
+if age <=29 then ag=20;
+else if 30 <= age <= 39 then ag=30;
+
+6
+data ex6;
+input  grp speed@@;
+cards;
+1 87 1 94 1 96 1 99
+2 94 2 98 2 101 2 104
+3 99 3 99 3 104 3 115 
+4 91 4 98 4 105 4 108
+run ;
+
+proc print;
+run;
+ 
+data ex6_6;
+do grp=1 to 4;
+input speed@@;
+output;
+end;
+cards;
+87 95 99 91
+94 98 99 98
+96 101 104 105
+99 114 115 108
+run ;
+ proc print;
+ run;
+
+7
+data ex7;
+do i= 1 to 5;
+x=i**2;
+y=log(i);
+output;
+end;
+run;
+
+proc print;
+run;
+

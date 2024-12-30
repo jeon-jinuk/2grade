@@ -1,0 +1,90 @@
+data toeic;
+infile 'C:\Users\admin\Desktop\APb_3.txt' firstobs=2 obs=11;
+input ID COLLEGE GRADE LC1 LC2 LC3 LC4 LCTOTAL RC1 RC2 RC3 RCTOTAL;
+run;
+
+proc print;
+run;
+
+proc freq;
+table college;
+run;
+
+/*대학별자료 집합 5개*/
+data college1 college2 college3 college4 college5;
+set toeic;
+if college=1 then output college1;
+if college=2 then output college2;
+if college=3 then output college3;
+if college=4 then output college4;
+if college=5 then output college5;
+run;
+
+proc print;
+run;
+
+
+data college2;
+set toeic;
+college=2;
+run;
+
+proc print;
+run;
+
+
+data toeic10;
+ set toeic;
+ if _N_<11;
+ run;
+
+ proc print;
+ run;
+/*새로운 변수(LC)만들기*/
+ data toeic10_1;
+ set toeic10;
+ LC=LC1+LC2+LC3+LC4;
+ if LC<70 then gr='불합격' ;
+  else gr=' 합격 ' ;
+ run;
+
+ proc print;
+ run;
+
+data toeic;
+infile 'C:\Users\admin\Desktop\APb_3.txt' firstobs=2;
+input ID COLLEGE GRADE LC1 LC2 LC3 LC4 LCTOTAL RC1 RC2 RC3 RCTOTAL;
+LC=LC1+LC2+LC3+LC4;
+if LC<70 then gr=0;
+else gr=1;
+run;
+/*내리차순으로 나타낼때*/
+proc sort data=toeic out=stoiec;
+by descending lc;
+run;
+
+proc print;
+run;
+
+/*점수대 변수(glc)생성*/
+
+data toeic_1;
+set toeic;
+if lc<=29 then glc=20;
+else if lc<=39 then glc=30;
+else if lc<=49 then glc=40;
+else if lc<=59 then glc=50;
+else if lc<=69 then glc=60;
+else if lc<=79 then glc=70;
+else if lc<=89 then glc=80;
+else glc=90;
+keep id lc glc;  /*보고싶은것만 나오게함*/
+run;
+
+proc print;
+run;
+
+proc freq;   /*누적빈도 구하기*/
+table glc;
+run;
+

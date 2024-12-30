@@ -1,0 +1,36 @@
+data dincome;
+infile 'C:\Users\admin\Desktop\Apa_1.txt' firstobs=2;
+input city age religion educatn occupatn gender income;
+if income=. then delete;
+if occupatn=. then delete;
+run;
+
+proc freq;   /*nocol(열) norow(행) 지우기*/
+table gender*city/nopercent nocol norow;
+run;
+
+proc print;
+var income;    /*뽑아서 보이게하기*/
+run;
+
+proc print data=dincome;
+run;
+
+proc sort data=dincome out=sincome;
+by religion;
+run;
+
+proc print;
+run;
+
+proc format;
+value cfmt 1='서울' 2='부산' 3='광주'; 
+value gfmt 1='남자' 2='여자' ;
+run;
+
+proc means mean;
+var income;
+class gender city;
+format gender gfmt. city cfmt.;
+run;
+
